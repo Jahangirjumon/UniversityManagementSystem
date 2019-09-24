@@ -1,0 +1,258 @@
+﻿@using System.Activities.Expressions
+@{
+    ViewBag.Title = "View Result";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>View Result</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        select, p, div, input {
+            font: 17px Calibri;
+        }
+
+        .Full {
+            border: dotted 1px #555;
+            width: 500px;
+        }
+
+        .grid {
+            font: 17px Calibri;
+            width: 500px;
+            background-color: #FFF;
+            border: solid 1px #CD6736;
+        }
+
+            .grid td, th {
+                padding: 2px;
+                border: solid 1px #CD6736;
+                text-align: center;
+                text-transform: capitalize;
+            }
+
+        .grid-header {
+            background-color: #CD6736;
+            color: #FFF;
+            text-align: left;
+        }
+
+        .grid-footer {
+            color: #000;
+            font: 15px Calibri;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body style="padding-left: 150px; padding-top: 50px;">
+
+    <div>
+        <div style="border: 1px solid black; width: 600px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+
+                        <h4 style="font-size: 25pt; color: green; padding-left: 130px">View Student Result</h4>
+
+                        <br /><br />
+
+                        <br />
+
+                            <div>
+                                Registartion No : @Html.DropDownList("selectedRegistartionNo", null, new { id = "selectedRegistartionNo" })
+                                <p>
+                            </div>
+                        @*<div class="form-group">
+
+                            <label for="StudentName">Name</label>
+                            <input type="text" id="StudentName" value="" class="form-control" name="StudentName" readonly="true">
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="Email">Email</label>
+                            <input type="text" id="Email" class="form-control" name="Email" readonly="true">
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="DepartmentName">Department</label>
+                            <input type="text" id="DepartmentName" class="form-control" name="DepartmentName" readonly="true">
+
+                        </div>
+
+                        <button type="submit" class="btn btn-default">MAKE PDF</button>*@
+
+                        <br /><br />
+                        <div id="WebGrid">
+                            @if (Model.Count > 0)
+                            {
+                                WebGrid objGrid = new WebGrid(source: Model, rowsPerPage: 5, canSort: false);
+
+                                @objGrid.GetHtml(
+                                    tableStyle: "grid",
+                                    headerStyle: "grid-header",
+                                    footerStyle: "grid-footer",
+                                    columns: objGrid.Columns(
+
+                                             objGrid.Column("CourseCode"),
+                                             objGrid.Column("CourseName", "Name"),
+                                        objGrid.Column("Result", "Grade")
+
+                                        )
+                                    )
+                            }
+
+                            @if (Model.Count == 0)
+                            {
+                                WebGrid objGrid = new WebGrid(source: Model, rowsPerPage: 5, canSort: false);
+                                @objGrid.GetHtml(
+                                    tableStyle: "grid",
+                                    headerStyle: "grid-header",
+                                    footerStyle: "grid-footer",
+                                    columns: objGrid.Columns(
+                                             objGrid.Column(" ", "Course Code"),
+                                             objGrid.Column(" ", "Name"),
+                                        objGrid.Column(" ", "Grade")
+                                        )
+                                    )
+                            }
+                        </div>
+                        <br /><br /><br /><br />
+                        @Html.ActionLink("Back to Home page", "Index", "Home", null, new { })
+                        <br /><br /><br /><br />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+        <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>
+        <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css'
+              media="screen" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" type="text/css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js" type="text/javascript"></script>
+
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript">
+          $(function () {
+              $('#selectedRegistartionNo').change(function () {
+                  var customDataListId = $("#selectedRegistartionNo").val();
+                  $.getJSON('@Url.Action("WebGridBind")', { studentId: customDataListId }, function (result) {
+                      var customDataList = $('#WebGrid');
+                        customDataList.empty();
+                        customDataList.append(result.Data);
+                    });
+                });
+            });
+        </script>
+        <script>
+            //$(function () {
+            //    $("#selectedRegistartionNo").change(function () {
+            //        $('#WebGridForm')[0].submit();
+
+
+
+            //    });
+            //});
+
+
+            //    //$("body").on("click", ".Grid tfoot a", function () {
+            //    //    $('#WebGridForm').attr('action', $(this).attr('href')).submit();
+
+            //    //});
+            //});
+            @*$.ajax({
+                url: '@Url.Action("GetResultDetails","ViewResult")',
+                contentType: 'application/html; charset=utf-8',
+                type: 'GET',
+                dataType: 'html',
+                data: { studentId: id },
+            })
+        .success(function (result) {
+            $('#sectionContents').html(result);
+        })
+         .error(function (xhr, status) {
+             alert(xhr.responseText);
+         });
+            });*@
+
+
+            //$(function () {
+            //    $("body").on("change", "#selectedRegistartionNo", function () {
+            //        $('#WebGridForm')[0].submit();
+            //        return false;
+
+            //    });
+
+
+            //    $("body").on("click", ".Grid tfoot a", function () {
+            //        $('#WebGridForm').attr('action', $(this).attr('href')).submit();
+
+            //    });
+            //});
+        </script>
+        <script>
+            //$(function () {
+            //    $("#selectedRegistartionNo").change(function () {
+
+            //        var id = $(this).val();
+
+            //        $("#StudentName").empty();
+
+            //        $.get("NameBind", { studentId: id }, function (data) {
+
+            //            //$("#StudentName").value(data);
+            //            $("#StudentName").val(data);
+            //        });
+            //    });
+
+
+
+            //    $("body").on("change", "#selectedRegistartionNo", function () {
+
+            //        var id = $(this).val();
+
+            //        $("#DepartmentName").empty();
+
+            //        $.get("DepartmentBind", { studentId: id }, function (data) {
+
+            //            //$("#StudentName").value(data);
+            //            $("#DepartmentName").val(data);
+
+            //        });
+            //    });
+
+
+            //    $("#selectedRegistartionNo").change(function () {
+
+            //        var id = $(this).val();
+
+            //        $("#Email").empty();
+
+            //        $.get("EmailBind", { studentId: id }, function (data) {
+
+            //            //$("#StudentName").value(data);
+            //            $("#Email").val(data);
+
+            //        });
+
+            //    });
+
+            //});
+
+
+        </script>
+    </div>
+</body>
+</html>

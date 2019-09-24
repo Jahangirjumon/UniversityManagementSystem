@@ -1,0 +1,150 @@
+﻿@using UniversityManagementSystemWebApp.Models
+
+@{
+    List<Department> departments = ViewBag.Departments;
+
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainView.cshtml";
+}<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h4 style="font-size: 30pt; color: green; padding-left: 170px">University Management System</h4>
+
+        <ol class="breadcrumb" style="padding-top: 50px;"></ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+       
+        <div class="box-body">
+
+            <body>
+                <div style="padding-left: 80px;">
+                    <h4 style="font-size: 25pt; padding: 0 0 0 170px; font-style: italic; text-decoration: underline; color: green">Course Save</h4>
+                    <div style="border: 1px solid black; width: 600px;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    @if (ViewBag.Message != null)
+                                    {
+                                        <div class="alert alert-success" role="alert">
+                                            @ViewBag.Message
+                                        </div>
+
+                                    }
+                                    <form method="POST" id="saveCourse">
+                                        <br/>
+                                        <div class="form-group">
+                                            <label for="Name">Code</label>
+                                            <input type="text" class="form-control" id="Code" name="Code" placeholder="Code">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Name">Name</label>
+                                            <input type="text" class="form-control" id="Name" name="Name" placeholder="Name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Credit">Credit</label>
+                                            <input type="text" class="form-control" id="Credit" name="Credit" placeholder="Credit">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="Description">Description</label>
+                                            <input type="text" class="form-control" id="Description" name="Description" placeholder="Description">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="DepartmentId">Department</label>
+                                            <select id="DepartmentId" name="DepartmentId" class="form-control">
+                                                <option value="">-Select Category-</option>
+                                                @foreach (Department department in departments)
+                                                {
+                                                    <option value="@department.Id">@department.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="SemesterId">Semester</label>
+                                            <select id="SemesterId" name="SemesterId" class="form-control">
+                                                <option value="">-Select Semester-</option>
+                                                <option value="1">1st</option>
+                                                <option value="2">2nd</option>
+                                                <option value="3">3rd</option>
+                                                <option value="4">4th</option>
+                                                <option value="5">5th</option>
+                                                <option value="6">6th</option>
+                                                <option value="7">7th</option>
+                                                <option value="8">8th</option>
+                                            </select>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-default">Save</button>
+                                    </form>
+                                    <br />
+                                    <br />
+                                    @Html.ActionLink("Back to Home page", "Index", "Home", null, new { })<br /><br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+                    <script src="~/Scripts/jquery.validate.min.js"></script>
+                    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+                    <script>
+                        $(function () {
+                            $("#saveCourse").validate({
+                                rules: {
+                                    'Name': {
+                                        required: true
+                                    },
+
+                                    'Code': {
+                                        required: true,
+                                        minlength: 5
+                                    },
+                                    'Description': {
+                                        required: true
+                                    },
+
+                                    'DepartmentId': {
+                                        required: true
+                                    },
+                                    'SemesterId': {
+                                        required: true
+                                    },
+                                    'Credit': {
+                                        required: true,
+                                        min: 0.5,
+                                        max: 5.0
+
+                                    },
+                                    messages: {
+                                        'Name': 'Please enter Name',
+                                        'Description': 'Please enter Description',
+                                        'Department': 'Please enter Department',
+                                        'Semester': 'Please enter Semester',
+                                        'Credit': {
+                                            required: 'Please provide a Code',
+                                            min: 'Your Credit must be at least 0.5',
+                                            max: 'Your Code must be at Highest 5.0'
+                                        },
+                                        'Code': {
+                                            required: 'Please provide a Code',
+                                            minlength: 'Your Code must be at least 5 characters long'
+                                        }
+                                    }
+                                }
+                            });
+
+                        });
+                    </script>
+
+
+                </div>
+
+            </body>
+        </div>
+        <!-- /.box-footer-->
+        <!-- /.box -->
+    </section>
+    <!-- /.content -->
+</div>

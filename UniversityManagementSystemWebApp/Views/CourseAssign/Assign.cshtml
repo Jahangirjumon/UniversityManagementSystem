@@ -1,0 +1,263 @@
+﻿@using UniversityManagementSystemWebApp.Models
+@{
+    //Course c1 = ViewBag.Course;
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainView.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h4 style="font-size: 30pt; color: green; padding-left: 170px">University Management System</h4>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+      
+        <div class="box-body">
+        
+            <h4 style="font-size: 17pt; padding: 0 0 0 170px; font-style: italic; text-decoration: underline; color: green">Assign Course</h4>
+
+                <div style="border: 1px solid black; width: 600px;">
+                    <div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <br />
+                                    @if (ViewBag.Message != null)
+                                    {
+                                        <div class="alert alert-success" role="alert">
+                                            @ViewBag.Message
+                                        </div>
+
+                                    }
+                                    <form method="POST" id="assignCourse">
+                                        <div class="form-group">
+
+                                            <label>Department</label>
+                                            @Html.DropDownList("Department", null, "-Select Department-", new { @class = "form-control" })
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <b>Teacher </b>
+                                            <select id="TeacherId" name="TeacherId" class="form-control"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="CreditToBeTaken">Credit To Be Taken</label>
+                                            <input type="text" class="form-control" id="CreditToBeTaken" name="CreditToBeTaken" readonly="readonly" placeholder="CreditToBeTaken">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="RemainingCredit">Remaining Credit</label>
+                                            <input type="text" class="form-control" id="RemainingCredit" name="RemainingCredit" readonly="readonly" placeholder="RemainingCredit">
+                                        </div>
+
+
+                                        <div class="form-group">
+
+                                            <b>Course Code</b>
+
+                                            <select id="CourseId" name="CourseId" class="form-control"></select>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="Name">Name</label>
+                                            <input type="text" class="form-control" id="Name" name="Name" readonly="readonly" placeholder="Name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Credit">Credit</label>
+                                            <input type="text" class="form-control" id="Credit" name="Credit" placeholder="Credit" readonly="readonly">
+                                        </div>
+
+                                        <button id="assignButton" type="submit" class="btn btn-default">Assign</button>
+                                    </form>
+                                    <br /><br />
+                                    @Html.ActionLink("Back to Home page", "Index", "Home", null, new { })<br /><br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+                    <script src="~/Scripts/jquery.validate.min.js"></script>
+                    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+                    @*<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>*@
+
+                    <script type="text/javascript">
+                        $("body").on("submit", "#assignCourse", function () {
+                            var selectedValue = $("#RemainingCredit").val();
+                            var selected2Value = $("#Credit").val();
+                            if (selectedValue - selected2Value < 0) {
+                                return confirm("Are you sure to Assign extra credit?");
+                            }
+                            else {
+
+                            }
+                        });
+                    </script>
+                    @if (ViewBag.Messages == "Credit Over Loaded")
+                    {
+                        <script type="text/javascript">
+                            window.onload = function () {
+                                alert('@ViewBag.Messages');
+                            };
+                        </script>
+                    }
+                    <script>
+                        $(function () {
+                            $("#assignCourse").validate({
+                                rules: {
+                                    'CourseId': {
+                                        required: true
+                                    },
+
+                                    'CreditToBeTaken': {
+                                        required: true,
+                                    },
+                                    'RemainingCredit': {
+                                        required: true
+                                    },
+
+                                    'Department': {
+                                        required: true
+                                    },
+                                    'Name': {
+                                        required: true
+                                    },
+                                    'Credit': {
+                                        required: true
+
+                                    },
+                                    messages: {
+                                        'Name': 'Please enter Name',
+                                        'Description': 'Please enter Description',
+                                        'Department': 'Please enter Department',
+                                        'Semester': 'Please enter Semester',
+                                        'Credit': {
+                                            required: 'Please provide a Code'
+
+                                        },
+                                        'Code': {
+                                            required: 'Please provide a Code',
+                                            minlength: 'Your Code must be at least 5 characters long'
+                                        }
+                                    }
+                                }
+                            });
+
+
+                            $("#Department").change(function () {
+
+                                var id = $(this).val();
+
+                                $("#TeacherId").empty();
+
+                                $.get("TeacherBind", { departmentId: id }, function (data) {
+
+                                    var v = "<option>--Select--</option>";
+
+                                    $.each(data, function (i, v1) {
+
+                                        v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+
+                                    });
+
+                                    $("#TeacherId").html(v);
+
+                                });
+
+                            });
+
+
+                            $("#Department").change(function () {
+
+                                var id = $(this).val();
+
+                                $("#CourseId").empty();
+
+                                $.get("CourseBind", { departmentId: id }, function (data) {
+
+                                    var v = "<option>---Select---</option>";
+
+                                    $.each(data, function (i, v1) {
+
+                                        v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+
+
+                                    });
+                                    $("#CourseId").html(v);
+
+                                });
+                            });
+
+                            $("#CourseId").change(function () {
+
+                                var id = $(this).val();
+
+                                $("#Name").empty();
+
+                                $.get("CourseNameBind", { courseId: id }, function (data) {
+
+                                    //$("#StudentName").value(data);
+                                    $("#Name").val(data);
+
+                                });
+                            });
+                            $("#CourseId").change(function () {
+
+                                var id = $(this).val();
+
+                                $("#Credit").empty();
+
+                                $.get("CourseCreditBind", { courseId: id }, function (data) {
+
+                                    //$("#StudentName").value(data);
+                                    $("#Credit").val(data);
+
+                                });
+                            });
+
+                            $("#TeacherId").change(function () {
+
+                                var id = $(this).val();
+
+                                $("#RemainingCredit").empty();
+
+                                $.get("RemainingCreditBind", { teacherId: id }, function (data) {
+
+                                    //$("#StudentName").value(data);
+                                    $("#RemainingCredit").val(data);
+
+                                });
+                            });
+
+
+                            $("#TeacherId").change(function () {
+
+                                var id = $(this).val();
+
+                                $("#CreditToBeTaken").empty();
+
+                                $.get("CreditToBeTakenBind", { teacherId: id }, function (data) {
+
+                                    //$("#StudentName").value(data);
+                                    $("#CreditToBeTaken").val(data);
+
+                                });
+                            });
+
+
+                            
+                        });
+
+                    </script>
+
+                </div>
+
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+
+
+

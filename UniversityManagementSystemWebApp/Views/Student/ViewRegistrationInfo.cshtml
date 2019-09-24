@@ -1,0 +1,71 @@
+﻿@using UniversityManagementSystemWebApp.Models
+
+@{
+    Student aStudent = ViewBag.LastRegistrationStudent;
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainView.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h4 style="font-size: 30pt; color: green; padding-left: 170px">University Management System</h4>
+
+  
+    </section>
+    <!-- Main content -->
+    <section class="content">
+    
+        <div class="box-body">
+            <body>
+            <div>
+                <h4 style="font-size: 15pt;color: green">Registerd Succesfully </h4>
+
+
+                <div style="border: 1px solid black; width: 600px;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <br/><br/>
+                                <div class="form-group">
+                                    <label>Registration No : @aStudent.RegNo </label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Name : @aStudent.Name </label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Department Name : @aStudent.DepartmentName </label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Email : @aStudent.Email </label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Contact No : @aStudent.ContactNo </label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Address : @aStudent.Address </label>
+                                </div>
+                                <br/>
+                                <br/><br/>
+                                @Html.ActionLink("Back", "Register", "Student", null, new {})
+                                <br/>
+                                <br/>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </body>
+        </div>
+      
+    </section>
+    <!-- /.content -->
+</div>

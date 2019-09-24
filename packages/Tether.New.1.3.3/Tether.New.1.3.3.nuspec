@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Tether.New</id>
+    <version>1.3.3</version>
+    <title>Tether (Newest)</title>
+    <authors>HubSpot, Inc.</authors>
+    <owners>HubSpot, Inc.</owners>
+    <licenseUrl>http://tether.io/</licenseUrl>
+    <projectUrl>https://github.com/HubSpot/tether</projectUrl>
+    <iconUrl>https://static.hubspot.com/style-guide/img/nav-sprocket.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Tether is a JavaScript library for efficiently making an absolutely positioned element stay next to another element on the page. For example, you might want a tooltip or dialog to open, and remain, next to the relevant item on the page.
+
+Tether includes the ability to constrain the element within the viewport, its scroll parent, any other element on the page, or a fixed bounding box. When it exceeds those constraints it can be pinned to the edge, flip to the other side of its target, or hide itself.
+
+Tether optimizes its location placement to result in the minimum amount of 'jankyness' as the page is scrolled and resized. The page can maintain 60fps scrolling even with dozens or hundreds of tethers on screen (pop open the devtools timeline as you scroll this page).
+
+Tether is 5kb minified and gzipped, and supports IE9+, and all modern browsers.</description>
+    <summary>Tether
+A client-side library to make absolutely positioned elements attach to elements in the page efficiently.</summary>
+    <copyright>Copyright © 2017</copyright>
+    <tags>Tether tether  Newest JavaScript library devtools optimizes HTML HTML5 jquery</tags>
+  </metadata>
+</package>

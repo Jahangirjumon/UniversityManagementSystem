@@ -1,0 +1,88 @@
+﻿@model IEnumerable<UniversityManagementSystemWebApp.Models.Department>
+@{
+    Layout = null;
+    ViewBag.Title = "grid";
+    WebGrid grid = new WebGrid(Model, rowsPerPage: 50);
+}
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainView.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h4 style="font-size: 30pt; color: green; padding-left: 170px">University Management System</h4>
+
+      
+    </section>
+    <!-- Main content -->
+    <section class="content">
+       
+        <div class="box-body">
+            <style type="text/css">
+                .AllPadding {
+                    padding-left: 17px;
+                }
+
+                .ContainerGrid {
+                    font-family: Arial;
+                    font-size: 15pt;
+                }
+
+                .Grid {
+                    border: 5px solid #ccc;
+                    border-collapse: collapse;
+                }
+
+                    .Grid th {
+                        background-color: #F7F7F7;
+                        font-weight: bold;
+                    }
+
+                    .Grid th, .Grid td {
+                        padding: 5px;
+                        border: 5px solid #ccc;
+                    }
+
+                    .Grid, .Grid table td {
+                        border: 2px solid #ccc;
+                    }
+
+                        .Grid th a, .Grid th a:visited {
+                            color: #333;
+                        }
+            </style>
+            <body>
+                <div class="AllPadding"style="padding-left: 50px;padding-top: 100px">
+                    <h4 style="font-size: 17pt;color: green"> All Department</h4>
+
+                    <div class="ContainerGrid">
+
+                        @grid.GetHtml(
+        htmlAttributes: new { @id = "WebGrid", @class = "Grid" },
+        columns: new[]
+        {
+            grid.Column("Code"),
+            grid.Column("Name")
+        })
+
+                    </div>
+                    <div>
+
+
+                        <br /><br />
+                        @Html.ActionLink("Back to Home page", "Index", "Home", null, new { })<br /><br />
+                    </div>
+                </div>
+            </body>
+        </div>
+     
+    </section>
+    <!-- /.content -->
+</div>
+
+
+
+

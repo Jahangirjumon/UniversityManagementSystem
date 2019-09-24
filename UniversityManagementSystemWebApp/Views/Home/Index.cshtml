@@ -1,0 +1,96 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainView.cshtml";
+}
+
+<div class="content-wrapper" style="">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h4 style="font-size: 30pt; color: green; padding-left: 170px">University Management System</h4>
+
+    </section>
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="box-body">
+            <div style="padding-left: 0px">
+
+                <div>
+                    <div style="padding-left: 0px">
+                        <div class=" container">
+                            <div class="row">
+                                <div class="col-sm-6">
+
+                                    <br />
+                                    <label style="font-style: italic; color: black; font-size: 20pt;">Department: </label>
+                                    <div style="font-style: italic; font-size: 15pt; padding-left: 50px">
+
+                                        @Html.ActionLink("Department", "Save", "Department", null, new { }) <br />@Html.ActionLink("All Department ", "WebGrid", "Department", null, new { })<br />
+
+                                    </div>
+                                    <br />
+                                    <label style="font-style: italic; color: black; font-size: 20pt;">Course : </label>
+
+                                    <div style="font-style: italic; font-size: 15pt; padding-left: 50px">
+
+                                        @Html.ActionLink("Course Save", "Save", "Course", null, new { }) <br /> @Html.ActionLink("Course Statistics", "CourseWebGridView", "CourseStatistics", null, new { })<br />
+
+                                    </div><br />
+                                    <label style="font-style: italic; color: black; font-size: 20pt;">Teacher : </label>
+                                    <div style="font-style: italic; font-size: 15pt; padding-left: 50px">
+
+                                        @Html.ActionLink("Teacher Save", "SaveTeacher", "Teacher", null, new { }) <br /> @Html.ActionLink("Assign Course", "Assign", "CourseAssign", null, new { })<br />
+                                    </div>
+                                    <br />
+                                    <label style="font-style: italic; color: black; font-size: 20pt;">Student : </label>
+                                    <div style="font-style: italic; font-size: 15pt; padding-left: 50px">
+
+                                        @Html.ActionLink("Register Student", "Register", "Student", null, new { }) <br /> @Html.ActionLink("Enroll In a Course", "Enroll", "EnrollCourse", null, new { })<br />
+
+                                    </div>
+                                    <br />
+                                    <label style="font-style: italic; color: black; font-size: 20pt;">Class Schedule And Room Allocation : </label>
+
+                                    <div style="font-style: italic; font-size: 15pt; padding-left: 50px">
+
+                                        @Html.ActionLink("Allocate Class Room", "Allocate", "AllocateClassRoom", null, new { }) <br /> @Html.ActionLink("View Schedule And Allocation ", "AllocateWebGridView", "ViewAllocateRoom", null, new { })<br />
+
+
+                                    </div>
+                                    <br />
+                                    <label style="font-style: italic; color: black; font-size: 20pt;">Result : </label>
+
+                                    <div style="font-style: italic; font-size: 15pt; padding-left: 50px">
+
+                                        @Html.ActionLink("Save Student Result", "ResultSave", "ResultSave", null, new { }) <br /> @Html.ActionLink("View Student Result", "ViewResult", "ViewResult", null, new { })<br />
+                                    </div>
+                                    <br />
+                                    <label style="font-style: italic; color: black; font-size: 20pt;">Unassign And Unallocate : </label>
+
+                                    <div style="font-style: italic; font-size: 15pt; padding-left: 50px">
+
+                                        @Html.ActionLink("Unassign All Course", "Unassign", "UnassignAndUnallocate", null, new { }) <br /> @Html.ActionLink("Unallocate All Classrooms", "UnAllocate", "UnassignAndUnallocate", null, new { })<br />
+
+                                    </div>
+
+                                 
+                     
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <body>
+
+
+
+        </div>
+
+    </section>
+    <!-- /.content -->
+</div>

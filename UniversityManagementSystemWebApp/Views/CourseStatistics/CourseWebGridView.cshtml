@@ -1,0 +1,140 @@
+﻿@{
+    ViewBag.Title = "Course Statistics";
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainView.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h4 style="font-size: 30pt; color: green; padding-left: 170px">University Management System</h4>
+
+       
+    </section>
+    <!-- Main content -->
+    <section class="content">
+       
+        <div class="box-body">
+        
+                <style>
+                    select, p, div, input {
+                        font: 17px Calibri;
+                    }
+
+                    .Full {
+                        border: dotted 1px #555;
+                        width: 500px;
+                    }
+
+                    .grid {
+                        font: 17px Calibri;
+                        width: 500px;
+                        background-color: #FFF;
+                        border: solid 1px #CD6736;
+                    }
+
+                        .grid td, th {
+                            padding: 2px;
+                            border: solid 1px #CD6736;
+                            text-align: center;
+                            text-transform: capitalize;
+                        }
+
+                    .grid-header {
+                        background-color: #CD6736;
+                        color: #FFF;
+                        text-align: left;
+                    }
+
+                    .grid-footer {
+                        color: #000;
+                        font: 15px Calibri;
+                        text-align: left;
+                    }
+                </style>
+
+            <body><br /><br />
+                <h4 style="font-size: 20pt; color: green; padding-left: 180px">Course Statistics</h4>
+            
+                <div style="padding-left: 50px;padding-top: 30px">
+                
+
+                <div style="border: 1px solid black; width: 600px;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-6">
+
+
+                                <br/>
+
+                                <br/>
+                                @using (Html.BeginForm("GetCourseDetails", "CourseStatistics", FormMethod.Post, new {@Id = "WebGridForm"}))
+                                {
+                                    <div>
+                                        Department : @Html.DropDownList("selectedDepartment", null, new {id = "selectDepartment"})
+                                        <p>
+                                    </div>
+                                }
+                                <br/><br/>
+
+                                @if (Model.Count > 0)
+                                {
+                                    WebGrid objGrid = new WebGrid(source: Model, rowsPerPage: 5, canSort: false);
+                                    @objGrid.GetHtml(
+                                        tableStyle: "grid",
+                                        headerStyle: "grid-header",
+                                        footerStyle: "grid-footer",
+                                        columns: objGrid.Columns(
+                                            objGrid.Column("Name"),
+                                            objGrid.Column("Code", "Code"),
+                                            objGrid.Column("SemesterName", "Semester"),
+                                            objGrid.Column("AssignTo", "Assign To ")
+                                            )
+                                        )
+                                }
+
+                                @if (Model.Count == 0)
+                                {
+                                    WebGrid objGrid = new WebGrid(source: Model, rowsPerPage: 5, canSort: false);
+                                    @objGrid.GetHtml(
+                                        tableStyle: "grid",
+                                        headerStyle: "grid-header",
+                                        footerStyle: "grid-footer",
+                                        columns: objGrid.Columns(
+                                            objGrid.Column(" ", "Name"),
+                                            objGrid.Column(" ", "Code"),
+                                            objGrid.Column(" ", "Semester"),
+                                            objGrid.Column(" ", "Assign To ")
+                                            )
+                                        )
+                                }
+
+                                <br/><br/><br/><br/>
+                                @Html.ActionLink("Back to Home page", "Index", "Home", null, new {})
+                                <br/><br/><br/><br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+                <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+                <script type="text/javascript">
+                    $("body").on("change", "#selectDepartment", function() {
+                        $('#WebGridForm')[0].submit();
+                    });
+                    $("body").on("click", ".Grid tfoot a", function() {
+                        $('#WebGridForm').attr('action', $(this).attr('href')).submit();
+                        return false;
+                    });
+                </script>
+            </div>
+            </body>
+        </div>
+        <!-- /.box-body -->
+    </section>
+    <!-- /.content -->
+</div>
+
+
+

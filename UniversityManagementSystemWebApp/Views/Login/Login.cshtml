@@ -1,0 +1,93 @@
+﻿@{
+    Layout = null;
+  ViewBag.Title = "Index";
+    
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
+    <style>
+        /*body {
+            background-image: url("~/Content/dist/img/bangladesh.jpg");
+            background-position: 50% 50%;
+            background-repeat: repeat;
+        }*/
+    </style>
+</head>
+<body>
+    <h4 style="font-size: 25pt; padding: 30px 0 0 330px; font-style: italic; text-decoration: underline; color: green">University Management System</h4>
+    <br />
+<div style="padding-left: 270px; padding-top: 140px;">
+    <h4 style="font-size: 25pt; padding: 0 0 0 220px; font-style: italic; text-decoration: underline; color: green">Login</h4><br/>
+
+    <div style="border: 1px solid black; width: 600px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    @if (ViewBag.Message != null)
+                    {
+                        <div class="alert alert-success" role="alert">
+                            @ViewBag.Message
+                        </div>
+
+                    }
+                    <form method="POST" id="login">
+
+                        <br/>
+                        <div class="form-group">
+                            <label for="UserName">UserName</label>
+                            <input type="text" class="form-control" id="UserName" name="UserName" placeholder="UserName">
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label for="Password">Password</label>
+                            <input type="password" class="form-control" id="Password" name="Password" placeholder="Password">
+                        </div>
+                        <button type="submit" class="btn btn-default">Login</button>
+                    </form>
+                    <br/><br/>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        $(function() {
+            $("#login").validate({
+                rules: {
+                    'UserName': {
+                        required: true
+                    },
+
+                    'Password': {
+                        required: true,
+                    },
+
+                    messages: {
+                        'Name': 'Please enter Name',
+
+                        'Code': {
+                            required: 'Please provide a Code',
+                            minlength: 'Your Code must be at least 2 characters long',
+                            maxlength: 'Your Code must be at highest 7 characters long'
+                        }
+                    }
+                }
+            });
+
+        });
+    </script>
+
+
+</div>
+</body>
+</html>
+
